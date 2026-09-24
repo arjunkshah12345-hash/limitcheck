@@ -109,6 +109,22 @@ Run the checks with:
 npm run check
 ```
 
+## Create the GitHub repo
+
+After committing locally, run the guarded helper below. It creates `arjunkshah12345-hash/limitcheck` if it does not exist, attaches `origin`, and pushes the current branch. It refuses to overwrite a mismatched remote or push a dirty worktree.
+
+```bash
+./scripts/create-and-push-github.sh
+```
+
+Preview the commands without making changes:
+
+```bash
+DRY_RUN=1 ./scripts/create-and-push-github.sh
+```
+
+The script expects an authenticated GitHub CLI session (`gh auth login`). Pass a different `owner/name` as its first argument or set `VISIBILITY=private` when needed.
+
 ## Visual direction
 
 The site is an original Limitcheck identity with a warm paper background, editorial serif typography, marker-orange accents, small hand-drawn marks, and code-note details. It takes visual cues from [social-sdk.dev](https://social-sdk.dev/)—especially its friendly illustrated documentation feel—without copying its logo, copy, or product surface.
