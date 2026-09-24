@@ -13,8 +13,10 @@
       property="og:description"
       content="One small command for Codex, Cursor, Claude Code, and whatever runs your agent."
     />
-    <meta property="og:image" content="/public/og.svg" />
+    <meta property="og:url" content="https://limitcheck.vercel.app/" />
+    <meta property="og:image" content="https://limitcheck.vercel.app/public/og.svg" />
     <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://limitcheck.vercel.app/" />
     <link rel="icon" href="/public/mark.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,7 +37,7 @@
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#try">Try it <span class="nav-underline" aria-hidden="true"></span></a>
         <a href="#install">Docs <span class="nav-underline" aria-hidden="true"></span></a>
-        <a href="https://github.com" target="_blank" rel="noreferrer">GitHub <span class="nav-underline" aria-hidden="true"></span></a>
+        <a href="https://github.com/arjunkshah12345-hash/limitcheck" target="_blank" rel="noreferrer">GitHub <span class="nav-underline" aria-hidden="true"></span></a>
         <button class="theme-toggle" type="button" aria-label="Switch to dark mode" data-theme-toggle>
           <span aria-hidden="true">◐</span>
         </button>
@@ -101,14 +103,14 @@
           <div class="demo-sidebar">
             <p class="side-label">sample payloads</p>
             <div class="sample-tabs" role="tablist" aria-label="Sample providers">
-              <button type="button" class="sample-tab is-active" data-sample="codex" role="tab" aria-selected="true">Codex</button>
-              <button type="button" class="sample-tab" data-sample="cursor" role="tab" aria-selected="false">Cursor</button>
-              <button type="button" class="sample-tab" data-sample="generic" role="tab" aria-selected="false">Anything</button>
+              <button type="button" class="sample-tab is-active" data-sample="codex" role="tab" aria-selected="true" aria-controls="demo-result">Codex</button>
+              <button type="button" class="sample-tab" data-sample="cursor" role="tab" aria-selected="false" aria-controls="demo-result">Cursor</button>
+              <button type="button" class="sample-tab" data-sample="generic" role="tab" aria-selected="false" aria-controls="demo-result">Anything</button>
             </div>
             <p class="sidebar-note">The protocol stays the same. Only the adapter changes.</p>
             <a class="side-link" href="#install">Read the 30-second docs <span aria-hidden="true">→</span></a>
           </div>
-          <div class="demo-result">
+          <div class="demo-result" id="demo-result" role="tabpanel" aria-live="polite">
             <div class="demo-result-head">
               <div>
                 <p class="result-kicker">normalized answer</p>
@@ -155,7 +157,7 @@
             Put the check before a large task. If the runway is tight, the model can split the
             work, save a checkpoint, or stop before the provider does.
           </p>
-          <a class="text-link" href="https://github.com" target="_blank" rel="noreferrer">Read the README <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="https://github.com/arjunkshah12345-hash/limitcheck#readme" target="_blank" rel="noreferrer">Read the README <span aria-hidden="true">↗</span></a>
         </div>
         <div class="paper-note reveal reveal-delay">
           <span class="note-tape" aria-hidden="true"></span>
