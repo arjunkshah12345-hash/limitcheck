@@ -3,124 +3,144 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#201d1d" />
-    <meta name="description" content="limitcheck gives coding agents a fast, normalized answer about their remaining rate-limit runway." />
-    <meta property="og:title" content="limitcheck — rate-limit runway for coding agents" />
-    <meta property="og:description" content="One small command. A clear answer before the next large task." />
+    <meta name="theme-color" content="#f5f5f1" />
+    <meta name="description" content="Give your coding agent a clear signal about its remaining rate-limit runway before it starts expensive work." />
+    <meta property="og:title" content="limitcheck — runway awareness for coding agents" />
+    <meta property="og:description" content="Install once. Your agent checks its limits and adjusts the work before it runs out." />
     <meta property="og:url" content="https://limitcheck.vercel.app/" />
     <meta property="og:image" content="https://limitcheck.vercel.app/public/og.svg" />
     <meta property="og:type" content="website" />
     <link rel="canonical" href="https://limitcheck.vercel.app/" />
     <link rel="icon" href="/public/mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
-    <title>limitcheck — rate-limit runway for coding agents</title>
+    <title>limitcheck — runway awareness for coding agents</title>
   </head>
   <body>
-    <header class="site-header">
-      <div class="site-container nav-row">
-        <a class="brand" href="/">limitcheck</a>
-        <nav aria-label="Primary navigation">
-          <a href="/docs/">docs</a>
-          <a href="https://github.com/arjunkshah12345-hash/limitcheck" target="_blank" rel="noreferrer">github</a>
-        </nav>
-      </div>
-    </header>
+    <a class="skip-link" href="#main">skip to content</a>
+    <nav class="corner-nav" aria-label="Primary navigation">
+      <a href="/docs/">docs</a>
+      <a href="https://github.com/arjunkshah12345-hash/limitcheck" target="_blank" rel="noreferrer">github</a>
+    </nav>
 
-    <main class="site-container">
-      <section class="hero" id="top">
-        <p class="eyebrow">runway awareness for coding agents</p>
-        <h1>let your agent know what it has left.</h1>
-        <p class="lede">install once. the agent checks its available quota, then decides how deeply and how far to take the work.</p>
+    <main class="page" id="main">
+      <header class="hero">
+        <a class="brand-mark" href="/" aria-label="limitcheck home">
+          <img src="/public/mark.svg" alt="" width="38" height="38" />
+        </a>
+        <div class="hero-copy">
+          <h1>Your agent should know when to sprint. And when to stop.</h1>
+          <p>Limitcheck gives coding agents a live sense of their remaining runway, so they can decide how deeply to work before the limit decides for them.</p>
+        </div>
         <div class="hero-actions">
-          <a class="button" href="#install">teach your agent</a>
-          <a class="text-link" href="/docs/">read the docs →</a>
+          <button class="primary-button" type="button" data-copy="npx --yes limitcheck"><span>Install agent awareness</span><span class="button-key">npx</span></button>
+          <a class="arrow-link" href="/docs/"><span>Read the 30-second docs</span><svg viewBox="0 0 28 13" aria-hidden="true"><path class="arrow-tail" d="M2 6.5h24"></path><path class="arrow-head" d="M11 3 15 6.5 11 10"></path></svg></a>
         </div>
+        <p class="install-note"><code>npx --yes limitcheck</code><span>one-time setup</span></p>
 
-        <div class="install-cta" id="install">
-          <div class="install-cta-head"><span>one-time setup</span><span>agent awareness</span></div>
-          <div class="install-command">
-            <code>npx --yes limitcheck</code>
-            <button type="button" data-copy="npx --yes limitcheck">copy install</button>
-          </div>
-          <p>you run this once. it installs the cli and instructions that teach the agent to check runway before expensive work.</p>
-          <div class="install-flow" aria-label="Install steps">
-            <span><b>01</b> detect limits</span>
-            <span><b>02</b> check before work</span>
-            <span><b>03</b> adapt scope</span>
+        <div class="hero-scene is-visible" aria-label="Agent runway decision example">
+          <div class="scene-toolbar"><span><i class="status-light"></i> agent planning</span><span>codex</span></div>
+          <div class="scene-body">
+            <div class="task-line"><span class="task-index">01</span><div><small>incoming task</small><strong>audit and refactor the authentication layer</strong></div></div>
+            <div class="runway-window"><div><span>5h window</span><small>resets in 2h 16m</small></div><strong>62%</strong><span class="runway-track"><i class="bar-62"></i></span></div>
+            <div class="runway-window"><div><span>weekly</span><small>resets in 4d</small></div><strong>18%</strong><span class="runway-track"><i class="bar-18 warning"></i></span></div>
+            <div class="agent-decision"><span>agent decision</span><strong>split the refactor into two checkpointed passes</strong></div>
           </div>
         </div>
+      </header>
 
-        <div class="terminal" aria-label="Example limitcheck output">
-          <div class="terminal-bar"><span>agent / planning signal</span><span>automatic</span></div>
-          <pre><span class="muted">→</span> checking available runway...
-
-5h window        <span class="success">62% left</span>    <span class="muted">resets in 2h 16m</span>
-weekly           <span class="success">81% left</span>    <span class="muted">resets in 4d</span>
-
-<span class="muted">decision: proceed, checkpoint before the next phase</span></pre>
+      <section class="story-section" data-reveal>
+        <div class="story-copy">
+          <span class="story-number">01</span>
+          <h2>The check happens before the expensive part.</h2>
+          <p>The installed skill teaches the agent when to look. Large refactor, long build, multi-file migration—it checks first, without you having to remember.</p>
+        </div>
+        <div class="product-scene scene-sequence" aria-label="Agent checking sequence">
+          <div class="sequence-row"><span class="sequence-state is-done">✓</span><div><small>task received</small><strong>implement workspace permissions</strong></div></div>
+          <div class="sequence-row active"><span class="sequence-state"><i></i></span><div><small>limitcheck</small><strong>reading available windows</strong></div></div>
+          <div class="sequence-row"><span class="sequence-state">03</span><div><small>next</small><strong>scope work from the lowest runway</strong></div></div>
         </div>
       </section>
 
-      <section class="section" id="how" data-reveal>
-        <p class="section-label">01 / protocol</p>
-        <h2>teach the agent the signal.</h2>
-        <p>the installed guidance tells it to inspect every window, use the lowest runway, and adjust its plan before it burns through the limit.</p>
-        <pre class="code-block"><code><span class="muted">agent reads</span> limitcheck status --json</code></pre>
+      <section class="story-section" data-reveal>
+        <div class="story-copy">
+          <span class="story-number">02</span>
+          <h2>The shortest-looking limit is not always the one that matters.</h2>
+          <p>A healthy five-hour window can hide an exhausted week. The agent reads every window and plans from the lowest one.</p>
+        </div>
+        <div class="product-scene scene-windows" aria-label="Normalized provider windows">
+          <div class="scene-caption"><span>normalized runway</span><span>lowest wins</span></div>
+          <div class="window-card"><div class="window-heading"><span>codex / 5h</span><strong>62% left</strong></div><span class="window-meter"><i class="bar-62"></i></span></div>
+          <div class="window-card selected"><div class="window-heading"><span>codex / weekly</span><strong>18% left</strong></div><span class="window-meter"><i class="bar-18 warning"></i></span><small>planning signal</small></div>
+          <div class="decision-chip">split work · checkpoint often</div>
+        </div>
       </section>
 
-      <section class="section" id="features" data-reveal>
-        <p class="section-label">02 / behavior</p>
-        <ul class="feature-list">
-          <li><strong>check before work</strong><span>the agent sees its runway first.</span></li>
-          <li><strong>read every window</strong><span>weekly and monthly shape the plan.</span></li>
-          <li><strong>change the rigor</strong><span>it scopes, splits, or checkpoints.</span></li>
-        </ul>
+      <section class="story-section" data-reveal>
+        <div class="story-copy">
+          <span class="story-number">03</span>
+          <h2>One install. The agents already on your machine learn the habit.</h2>
+          <p>Codex, Claude Code, Cursor, OpenCode, CrocBot, and custom harnesses all get the same small protocol. Provider auth stays where it already lives.</p>
+        </div>
+        <div class="product-scene scene-agents" aria-label="Agent install targets">
+          <div class="scene-caption"><span>detected surfaces</span><span>installed</span></div>
+          <ul>
+            <li><span>codex</span><small>skill</small><i>✓</i></li>
+            <li><span>claude code</span><small>skill</small><i>✓</i></li>
+            <li><span>cursor</span><small>rule</small><i>✓</i></li>
+            <li><span>opencode</span><small>skill</small><i>✓</i></li>
+          </ul>
+        </div>
       </section>
 
-      <section class="section install-section" data-reveal>
-        <p class="section-label">03 / install</p>
-        <h2>the agent checks. the agent decides.</h2>
-        <pre class="code-block"><code><span class="muted">when runway is tight:</span>
-split the task · checkpoint often · stop before exhaustion</code></pre>
-        <p>you do not need to babysit a dashboard or remember another command.</p>
-        <a class="text-link" href="/docs/#planning">see the planning rule →</a>
+      <section class="closing" data-reveal>
+        <p>That’s the whole product. Install it once, and let the agent decide how much work its runway can support.</p>
+        <div class="hero-actions">
+          <button class="primary-button" type="button" data-copy="npx --yes limitcheck"><span>Install agent awareness</span><span class="button-key">npx</span></button>
+          <a class="arrow-link" href="/docs/"><span>See exactly how it works</span><svg viewBox="0 0 28 13" aria-hidden="true"><path class="arrow-tail" d="M2 6.5h24"></path><path class="arrow-head" d="M11 3 15 6.5 11 10"></path></svg></a>
+        </div>
       </section>
+
+      <footer class="site-footer">
+        <p><strong>limitcheck.</strong> runway-aware on purpose.</p>
+        <p><a href="/docs/">docs</a><span>·</span><a href="https://github.com/arjunkshah12345-hash/limitcheck" target="_blank" rel="noreferrer">github</a><span>·</span><a href="https://social-sdk.dev/" target="_blank" rel="noreferrer">visual roots</a><span>·</span><span>mit licensed</span></p>
+      </footer>
     </main>
-
-    <footer class="site-footer">
-      <div class="site-container footer-row">
-        <span>limitcheck / open source</span>
-        <span><a href="/docs/">docs</a> · <a href="https://social-sdk.dev/" target="_blank" rel="noreferrer">visual reference</a></span>
-      </div>
-    </footer>
 
     <div class="toast" role="status" aria-live="polite" data-toast></div>
     <script>
       const toast = document.querySelector("[data-toast]");
+      let toastTimer;
+
       document.querySelectorAll("[data-copy]").forEach((button) => {
         button.addEventListener("click", async () => {
           try {
             await navigator.clipboard.writeText(button.dataset.copy);
-            toast.textContent = "copied";
+            toast.textContent = "install command copied";
+            button.classList.add("is-copied");
+            setTimeout(() => button.classList.remove("is-copied"), 1100);
           } catch {
             toast.textContent = "copy unavailable";
           }
           toast.classList.add("is-visible");
-          setTimeout(() => toast.classList.remove("is-visible"), 1400);
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 1600);
         });
       });
 
       const revealItems = document.querySelectorAll("[data-reveal]");
-      if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        const revealObserver = new IntersectionObserver((entries, observer) => {
+      if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const observer = new IntersectionObserver((entries, revealObserver) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add("is-visible");
-              observer.unobserve(entry.target);
+              revealObserver.unobserve(entry.target);
             }
           });
         }, { rootMargin: "0px 0px -12%" });
-        revealItems.forEach((item) => revealObserver.observe(item));
+        revealItems.forEach((item) => observer.observe(item));
       } else {
         revealItems.forEach((item) => item.classList.add("is-visible"));
       }
