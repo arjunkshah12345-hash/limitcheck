@@ -32,8 +32,22 @@
         <h1>know what your agent has left.</h1>
         <p class="lede">a tiny cli that turns provider usage into one clear answer before the next large task.</p>
         <div class="hero-actions">
-          <a class="button" href="/docs/">read the docs</a>
-          <button class="command-copy" type="button" data-copy="npx --yes limitcheck"><code>npx --yes limitcheck</code><span>copy</span></button>
+          <a class="button" href="#install">install limitcheck</a>
+          <a class="text-link" href="/docs/">read the docs →</a>
+        </div>
+
+        <div class="install-cta" id="install">
+          <div class="install-cta-head"><span>install once</span><span>one command</span></div>
+          <div class="install-command">
+            <code>npx --yes limitcheck</code>
+            <button type="button" data-copy="npx --yes limitcheck">copy command</button>
+          </div>
+          <p>installs the cli and agent instructions for the coding agents already on this machine.</p>
+          <div class="install-flow" aria-label="Install steps">
+            <span><b>01</b> cli</span>
+            <span><b>02</b> instructions</span>
+            <span><b>03</b> ready</span>
+          </div>
         </div>
 
         <div class="terminal" aria-label="Example limitcheck output">
@@ -47,14 +61,14 @@ weekly           <span class="success">81% left</span>    <span class="muted">re
         </div>
       </section>
 
-      <section class="section" id="how">
+      <section class="section" id="how" data-reveal>
         <p class="section-label">01 / protocol</p>
         <h2>shell in. json out.</h2>
         <p>your harness owns provider auth. limitcheck keeps the agent-facing answer stable.</p>
         <pre class="code-block"><code><span class="muted">cat usage.json |</span> limitcheck status --json</code></pre>
       </section>
 
-      <section class="section" id="features">
+      <section class="section" id="features" data-reveal>
         <p class="section-label">02 / behavior</p>
         <ul class="feature-list">
           <li><strong>check first</strong><span>before high-context work.</span></li>
@@ -63,12 +77,12 @@ weekly           <span class="success">81% left</span>    <span class="muted">re
         </ul>
       </section>
 
-      <section class="section install-section" id="install">
+      <section class="section install-section" data-reveal>
         <p class="section-label">03 / install</p>
-        <h2>one command.</h2>
-        <pre class="code-block"><code>npx --yes limitcheck</code></pre>
-        <p>installs the cli and agent guidance for the surfaces already on the machine.</p>
-        <a class="text-link" href="/docs/#agent-setup">see what gets installed →</a>
+        <h2>then let the agent check.</h2>
+        <pre class="code-block"><code>limitcheck status --json</code></pre>
+        <p>the installed guidance tells it to check before high-context work and plan from the lowest window.</p>
+        <a class="text-link" href="/docs/#planning">see the planning rule →</a>
       </section>
     </main>
 
@@ -94,6 +108,21 @@ weekly           <span class="success">81% left</span>    <span class="muted">re
           setTimeout(() => toast.classList.remove("is-visible"), 1400);
         });
       });
+
+      const revealItems = document.querySelectorAll("[data-reveal]");
+      if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: "0px 0px -12%" });
+        revealItems.forEach((item) => revealObserver.observe(item));
+      } else {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+      }
     </script>
   </body>
 </html>
