@@ -1,0 +1,32 @@
+{
+  "name": "limitcheck",
+  "version": "0.1.0",
+  "description": "A tiny, provider-agnostic rate-limit status tool for coding agents.",
+  "type": "module",
+  "bin": {
+    "limitcheck": "./bin/limitcheck.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "node --test",
+    "test": "node --test",
+    "dev": "python3 -m http.server 4173"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ai",
+    "coding-agent",
+    "codex",
+    "cursor",
+    "rate-limit",
+    "developer-tools"
+  ]
+}

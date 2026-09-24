@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#fffdf9"/>
+  <path d="M850 110C1010 140 1130 310 1070 470" stroke="#e8542f" stroke-width="34" stroke-linecap="round" opacity=".13"/>
+  <path d="M920 132C1035 184 1080 304 1046 404" stroke="#e8542f" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 18"/>
+  <path d="M92 448C200 385 320 392 430 420" stroke="#1c1a17" stroke-width="3" stroke-linecap="round"/>
+  <path d="M94 474C220 410 332 419 458 445" stroke="#e8542f" stroke-width="5" stroke-linecap="round"/>
+  <text x="94" y="200" fill="#e8542f" font-family="cursive" font-size="38">the small status tool</text>
+  <text x="90" y="306" fill="#1c1a17" font-family="Georgia, serif" font-size="94">limitcheck</text>
+  <text x="96" y="366" fill="#57534c" font-family="Georgia, serif" font-size="28">know your runway before you ship.</text>
+  <g transform="translate(820 200)">
+    <path d="M0 140c10-78 70-127 137-136 40-5 74 6 93 26" stroke="#1c1a17" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-2 148c38 24 80 36 129 36 56 0 103-17 139-47" stroke="#e8542f" stroke-width="10" stroke-linecap="round"/>
+    <path d="M64 55l10 35M129 23l2 44M190 29l-17 36" stroke="#1c1a17" stroke-width="7" stroke-linecap="round"/>
+    <path d="M89 165l47-75" stroke="#1c1a17" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="89" cy="165" r="11" fill="#e8542f" stroke="#1c1a17" stroke-width="5"/>
+  </g>
+</svg>
