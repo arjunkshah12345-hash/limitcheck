@@ -38,7 +38,9 @@ branch="$(git branch --show-current)"
 [[ -n "$branch" ]] || die "detached HEAD; checkout a branch before pushing"
 [[ -z "$(git status --porcelain)" ]] || die "working tree is not clean; commit changes first"
 
-gh auth status >/dev/null 2>&1 || die "authenticate first with: gh auth login"
+if [[ "$dry_run" != "1" ]]; then
+  gh auth status >/dev/null 2>&1 || die "authenticate first with: gh auth login"
+fi
 
 expected_https="https://github.com/${repo}.git"
 expected_ssh="git@github.com:${repo}.git"
@@ -54,6 +56,11 @@ if remote_url="$(git remote get-url "$remote_name" 2>/dev/null)"; then
   exit 0
 fi
 
+if [[ "$dry_run" == "1" ]]; then
+  run gh repo create "$repo" "--$visibility" --source "$root" --remote "$remote_name" --push
+  exit 0
+fi
+
 if gh repo view "$repo" >/dev/null 2>&1; then
   run git remote add "$remote_name" "$expected_https"
   run git push --set-upstream "$remote_name" HEAD
@@ -63,4 +70,3 @@ fi
 
 run gh repo create "$repo" "--$visibility" --source "$root" --remote "$remote_name" --push
 printf 'created and pushed %s to %s\n' "$branch" "$repo"
-
