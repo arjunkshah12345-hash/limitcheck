@@ -140,7 +140,7 @@ Run the checks with:
 npm run check
 ```
 
-Read the full documentation at [limitcheck.vercel.app/docs](https://limitcheck.vercel.app/docs/). A second, minimalist visual direction is available at [limitcheck.vercel.app/redesign](https://limitcheck.vercel.app/redesign/) without replacing the primary landing page.
+Read the full documentation at [limitcheck.vercel.app/docs](https://limitcheck.vercel.app/docs/).
 
 ## Create the GitHub repo
 
