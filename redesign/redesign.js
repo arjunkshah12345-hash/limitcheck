@@ -67,18 +67,3 @@ document.querySelectorAll("[data-provider]").forEach((button) => {
     });
   });
 });
-
-const modeToggle = document.querySelector("[data-mode-toggle]");
-const savedTheme = localStorage.getItem("limitcheck-theme");
-if (savedTheme === "dark") document.documentElement.dataset.theme = "dark";
-function updateModeLabel() {
-  const dark = document.documentElement.dataset.theme === "dark";
-  modeToggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-}
-modeToggle.addEventListener("click", () => {
-  const dark = document.documentElement.dataset.theme === "dark";
-  document.documentElement.dataset.theme = dark ? "light" : "dark";
-  localStorage.setItem("limitcheck-theme", dark ? "light" : "dark");
-  updateModeLabel();
-});
-updateModeLabel();
