@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f4ef" />
+    <meta name="description" content="limitcheck — a minimalist runway check for coding agents." />
+    <meta property="og:title" content="limitcheck — second visual direction" />
+    <meta property="og:description" content="A minimalist, grid-led direction for agent runway." />
+    <meta property="og:url" content="https://limitcheck.vercel.app/redesign/" />
+    <meta property="og:image" content="https://limitcheck.vercel.app/public/og.svg" />
+    <link rel="canonical" href="https://limitcheck.vercel.app/redesign/" />
+    <link rel="icon" href="/public/mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/redesign/redesign.css" />
+    <title>limitcheck — second visual direction</title>
+  </head>
+  <body>
+    <div class="redesign-shell">
+      <header class="redesign-header">
+        <a class="redesign-brand" href="/" aria-label="limitcheck home"><span class="brand-mark">/</span><span>limitcheck</span></a>
+        <nav aria-label="Primary navigation">
+          <a href="/">original</a>
+          <a href="/docs/">docs</a>
+          <a href="https://github.com/arjunkshah12345-hash/limitcheck" target="_blank" rel="noreferrer">github</a>
+          <button class="mode-button" type="button" data-mode-toggle aria-label="Switch to dark mode">◐</button>
+        </nav>
+      </header>
+
+      <div class="redesign-meta"><span>direction 02</span><span>scroll study / left text / right object</span><span>limitcheck 0.2</span></div>
+
+      <main class="scroll-layout">
+        <div class="story-column">
+          <section class="story-block story-intro" data-step="intro" id="overview">
+            <div class="story-index">00 <span>—</span> the premise</div>
+            <div>
+              <p class="kicker">rate-limit runway for coding agents</p>
+              <h1>know your<br /><em>runway.</em></h1>
+              <p class="story-copy">a small status probe that tells an agent which window matters, how much is left, and when it resets.</p>
+              <a class="text-arrow" href="/docs/">read the docs <span>↗</span></a>
+            </div>
+          </section>
+
+          <section class="story-block" data-step="status" id="status">
+            <div class="story-index">01 <span>—</span> the answer</div>
+            <div>
+              <h2>one stable answer<br />for every harness.</h2>
+              <p class="story-copy">codex, cursor, claude code, crocbot, or a custom shell. the adapter changes at the edge. the agent gets the same compact status.</p>
+              <p class="micro-note"><span class="micro-dot"></span> the right-hand object updates as you scroll</p>
+            </div>
+          </section>
+
+          <section class="story-block" data-step="install" id="install">
+            <div class="story-index">02 <span>—</span> one command</div>
+            <div>
+              <h2>install the cli<br />and the habit.</h2>
+              <p class="story-copy">one command installs limitcheck and wires its instructions into the agent surfaces already on the machine. no account. no dashboard. no new workflow for the user.</p>
+              <a class="text-arrow" href="/docs/#agent-setup">see the installed surfaces <span>↗</span></a>
+            </div>
+          </section>
+
+          <section class="story-block" data-step="plan" id="planning">
+            <div class="story-index">03 <span>—</span> the plan</div>
+            <div>
+              <h2>let the runway<br />change the scope.</h2>
+              <p class="story-copy">above 25%, proceed and checkpoint. between 10–25%, split the task. at 10% or below, do not start a large job.</p>
+              <p class="micro-note"><span class="micro-dot micro-dot-warn"></span> weekly and monthly windows are the real planning signal</p>
+            </div>
+          </section>
+
+          <section class="story-block story-end" data-step="finish" id="finish">
+            <div class="story-index">04 <span>—</span> ship with context</div>
+            <div>
+              <h2>small signal.<br /><em>fewer surprises.</em></h2>
+              <p class="story-copy">read the full guide, install it, and let the agent decide how much work it can safely take on.</p>
+              <div class="end-actions"><a class="line-button" href="/docs/">open docs <span>↗</span></a><a class="line-button" href="/">back home <span>↗</span></a></div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="companion-column" aria-label="Live limitcheck companion">
+          <div class="companion-frame">
+            <div class="companion-topline"><span>limitcheck / companion</span><span data-companion-label>the premise</span></div>
+
+            <div class="companion-card is-active" data-companion="intro">
+              <div class="orbit-object" aria-hidden="true"><span class="orbit-line orbit-one"></span><span class="orbit-line orbit-two"></span><span class="orbit-dot"></span><span class="orbit-mark">/</span></div>
+              <p class="object-kicker">the small status tool</p>
+              <p class="object-caption">a clear answer<br />before a costly task</p>
+            </div>
+
+            <div class="companion-card" data-companion="status">
+              <div class="object-header"><span>normalized answer</span><span class="live-status"><i></i> live shape</span></div>
+              <div class="gadget-title"><strong>agent / status</strong><span>now</span></div>
+              <div class="provider-switcher"><button class="provider-button is-active" type="button" data-provider="codex">codex</button><button class="provider-button" type="button" data-provider="cursor">cursor</button><button class="provider-button" type="button" data-provider="generic">anything</button></div>
+              <div class="gadget-windows">
+                <div class="gadget-window"><span data-window-name="0">5h window</span><b data-window-value="0">62%</b><small data-window-reset="0">resets in 2h 16m</small><i><span data-meter="0" style="--meter: 62%"></span></i></div>
+                <div class="gadget-window"><span data-window-name="1">weekly</span><b data-window-value="1">81%</b><small data-window-reset="1">resets in 4d</small><i><span data-meter="1" style="--meter: 81%"></span></i></div>
+              </div>
+              <pre class="gadget-json">{ <span>"lowestRemainingPercent"</span>: 62,
+  <span>"provider"</span>: "codex" }</pre>
+            </div>
+
+            <div class="companion-card" data-companion="install">
+              <div class="object-header"><span>bootstrap / local</span><span>no account</span></div>
+              <div class="terminal-object"><div><span class="muted">$</span> npx --yes limitcheck</div><div class="terminal-result"><span>→</span> cli installed<br /><span>→</span> agent guidance installed<br /><span>→</span> ready for a usage snapshot</div></div>
+              <button class="copy-command" type="button" data-copy="npx --yes limitcheck">copy command <span>↗</span></button>
+            </div>
+
+            <div class="companion-card" data-companion="plan">
+              <div class="object-header"><span>agent / decision</span><span>conservative</span></div>
+              <div class="rule-object"><div><strong>&gt; 25%</strong><span class="rule-bar"><i style="--rule: 82%"></i></span><small>proceed + checkpoint</small></div><div><strong>10–25%</strong><span class="rule-bar"><i class="warning" style="--rule: 48%"></i></span><small>split the work</small></div><div><strong>≤ 10%</strong><span class="rule-bar"><i class="danger" style="--rule: 15%"></i></span><small>do not start large work</small></div></div>
+              <p class="object-footnote">the lowest window is the runway.</p>
+            </div>
+
+            <div class="companion-card" data-companion="finish">
+              <div class="finish-object"><span class="finish-mark">✓</span><strong>ready to work</strong><small>when the agent knows what it has left.</small></div>
+              <a class="copy-command finish-link" href="/docs/">read the full guide <span>↗</span></a>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="redesign-footer"><span>limitcheck / second visual direction</span><span><a href="/">original landing page</a> · <a href="/docs/">documentation</a> · <a href="https://social-sdk.dev/" target="_blank" rel="noreferrer">visual reference</a></span></footer>
+    </div>
+    <div class="redesign-toast" role="status" aria-live="polite" data-toast></div>
+    <script src="/redesign/redesign.js" defer></script>
+  </body>
+</html>

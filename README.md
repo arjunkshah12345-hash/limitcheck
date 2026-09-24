@@ -140,6 +140,8 @@ Run the checks with:
 npm run check
 ```
 
+Read the full documentation at [limitcheck.vercel.app/docs](https://limitcheck.vercel.app/docs/). A second, minimalist visual direction is available at [limitcheck.vercel.app/redesign](https://limitcheck.vercel.app/redesign/) without replacing the primary landing page.
+
 ## Create the GitHub repo
 
 After committing locally, run the guarded helper below. It creates `arjunkshah12345-hash/limitcheck` if it does not exist, attaches `origin`, and pushes the current branch. It refuses to overwrite a mismatched remote or push a dirty worktree.
