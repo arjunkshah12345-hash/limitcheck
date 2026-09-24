@@ -2,7 +2,9 @@
 
 Know your model's runway before you ship.
 
-`limitcheck` is a tiny, provider-agnostic status tool for coding agents. It turns whatever usage payload your harness can access into one compact answer: which limits exist, how much is left, and when each window resets.
+`limitcheck` is a tiny, provider-agnostic runway probe for coding agents. It turns whatever usage payload the harness can access into one compact answer: which limits exist, how much is left, and when each window resets.
+
+This is for the model, not for a human dashboard. An agent checks it before a large task, pays attention to the weekly or monthly window, and changes its plan before it burns through the provider limit.
 
 It is intentionally boring to integrate:
 
@@ -11,11 +13,26 @@ It is intentionally boring to integrate:
 - no dashboard, daemon, or hosted account required;
 - works anywhere an agent can run a command: Claude Code, Codex, Cursor, OpenCode, CrocBot, and custom harnesses.
 
+## Install once
+
+The package includes the CLI and the agent guidance. Install it globally, then install the workspace skill files once:
+
+```bash
+npm install -g limitcheck
+limitcheck install
+```
+
+Or do both through `npx`:
+
+```bash
+npx limitcheck install
+```
+
+`limitcheck install` adds compatible guidance for Codex-style skills, Claude Code, Cursor rules, OpenCode, and generic `AGENTS.md` / `CLAUDE.md` workspaces. It never overwrites existing guidance files.
+
 ## Try it
 
 ```bash
-npm install -g .
-
 limitcheck sample codex
 limitcheck sample cursor --json
 ```
@@ -85,10 +102,23 @@ console.log(formatText(snapshot));
 
 The agent-friendly contract is `limitcheck status --json`: one line of JSON on stdout, errors on stderr, and exit code `2` for invalid or missing input.
 
+## Agent behavior
+
+The installed skill tells agents to:
+
+1. Run `limitcheck status --json` before high-context or multi-step work.
+2. Read every window, especially `weekly`, `monthly`, and `secondary` limits.
+3. Use the lowest `remainingPercent` as the conservative runway.
+4. Split work below 25% remaining and avoid starting large work at or below 10%.
+5. Never invent a provider limit when the harness has not exposed a usage payload.
+
+The exact provider auth and usage fetch remain with the harness that already owns them. Limitcheck keeps the agent-facing command and decision rule stable.
+
 ## Commands
 
 | Command | What it does |
 | --- | --- |
+| `limitcheck install` | Install the runway skill into the current agent workspace. |
 | `limitcheck status` | Read JSON from stdin, `--file`, `--json-input`, or `LIMITCHECK_SNAPSHOT`. |
 | `limitcheck status --json` | Emit normalized one-line JSON for an agent. |
 | `limitcheck sample codex` | Print a safe local Codex-shaped example. |
@@ -131,6 +161,6 @@ The site is an original Limitcheck identity with a warm paper background, editor
 
 ## Status
 
-The protocol and static site are ready for provider adapters. The first-party adapter boundary is intentionally small so a change in a provider's private usage surface does not require changing the agent-facing command.
+The published package, installable agent guidance, protocol, and static site are ready for provider adapters. The adapter boundary is intentionally small so a change in a provider's private usage surface does not require changing the agent-facing command.
 
 MIT licensed.

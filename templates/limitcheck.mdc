@@ -1,0 +1,7 @@
+---
+description: Check remaining provider runway before long coding-agent work.
+alwaysApply: true
+---
+
+Before any multi-step or high-context task, run `limitcheck status --json` and use the lowest remaining percentage across all windows. Prioritize weekly/monthly/secondary windows over the short window. Above 25% proceed with a checkpoint; 10–25% split scope; at or below 10% avoid starting large work and mention the reset time. Never invent usage values. If no provider payload is available, say the check is unavailable rather than guessing.
+

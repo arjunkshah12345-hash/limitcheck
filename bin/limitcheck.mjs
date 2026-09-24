@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFileSync } from "node:fs";
+import { installAgentGuidance } from "../src/install.mjs";
 import { DEMO_SNAPSHOTS, formatText, normalizeSnapshot, toAgentJson } from "../src/limits.mjs";
 
 const args = process.argv.slice(2);
@@ -20,9 +21,10 @@ function hasFlag(name) {
 
 function printHelp() {
   process.stdout.write(`limitcheck — rate-limit runway for coding agents\n\n`);
-  process.stdout.write(`Usage\n  limitcheck status [--json] [--provider <name>] [--file <path>]\n  limitcheck sample [codex|cursor] [--json]\n\n`);
+  process.stdout.write(`Usage\n  limitcheck install [--path <workspace>]\n  limitcheck status [--json] [--provider <name>] [--file <path>]\n  limitcheck sample [codex|cursor] [--json]\n\n`);
   process.stdout.write(`Input\n  Pipe a provider payload on stdin, pass --file, or use LIMITCHECK_SNAPSHOT.\n`);
   process.stdout.write(`  The payload can use windows[], rateLimits{}, limits{}, or usage{}.\n`);
+  process.stdout.write(`Agents\n  Run limitcheck install once in a workspace to install runway guidance.\n`);
 }
 
 async function readStdin() {
@@ -40,6 +42,14 @@ async function run() {
 
   const wantsJson = hasFlag("--json");
   const provider = flag("--provider") ?? "generic";
+
+  if (command === "install") {
+    const target = flag("--path") ?? process.cwd();
+    const result = installAgentGuidance(target);
+    process.stdout.write(`limitcheck: installed agent guidance in ${target}\n`);
+    for (const entry of result) process.stdout.write(`  ${entry.status === "created" ? "✓" : "·"} ${entry.status} ${entry.path}\n`);
+    return;
+  }
 
   if (command === "sample") {
     const sampleName = args.find((arg) => !arg.startsWith("-")) ?? "codex";

@@ -3,24 +3,38 @@
   "version": "0.1.0",
   "description": "A tiny, provider-agnostic rate-limit status tool for coding agents.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arjunkshah12345-hash/limitcheck.git"
+  },
+  "homepage": "https://limitcheck.vercel.app",
+  "bugs": {
+    "url": "https://github.com/arjunkshah12345-hash/limitcheck/issues"
+  },
   "bin": {
     "limitcheck": "./bin/limitcheck.mjs"
   },
   "files": [
     "bin",
     "src",
+    "skills",
+    "templates",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
     "check": "node --test",
     "test": "node --test",
-    "dev": "python3 -m http.server 4173"
+    "dev": "python3 -m http.server 4173",
+    "prepublishOnly": "npm run check"
   },
   "engines": {
     "node": ">=20"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "ai",
     "coding-agent",
