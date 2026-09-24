@@ -15,20 +15,19 @@ It is intentionally boring to integrate:
 
 ## Install once
 
-The package includes the CLI and the agent guidance. Install it globally, then install the workspace skill files once:
+The package includes the CLI and the agent guidance. One command bootstraps the global CLI, detects the coding agents installed on the machine, and installs the runway instructions for them:
 
 ```bash
-npm install -g limitcheck
-limitcheck install
+npx --yes limitcheck
 ```
 
-Or do both through `npx`:
+After that, agents can call `limitcheck status --json` directly. If you prefer an explicit command, this is equivalent:
 
 ```bash
-npx limitcheck install
+npx --yes limitcheck install
 ```
 
-`limitcheck install` adds compatible guidance for Codex-style skills, Claude Code, Cursor rules, OpenCode, and generic `AGENTS.md` / `CLAUDE.md` workspaces. It never overwrites existing guidance files.
+The bootstrap adds compatible guidance for Codex-style skills, Claude Code, Cursor rules, OpenCode, CrocBot when detected, and generic `AGENTS.md` / `CLAUDE.md` workspaces. It never overwrites existing guidance files.
 
 ## Try it
 
@@ -118,7 +117,9 @@ The exact provider auth and usage fetch remain with the harness that already own
 
 | Command | What it does |
 | --- | --- |
-| `limitcheck install` | Install the runway skill into the current agent workspace. |
+| `limitcheck` | One-command bootstrap: install the CLI globally and wire up detected agents. |
+| `limitcheck install` | Same bootstrap with an explicit command. |
+| `limitcheck install --workspace-only` | Install only the current workspace files. |
 | `limitcheck status` | Read JSON from stdin, `--file`, `--json-input`, or `LIMITCHECK_SNAPSHOT`. |
 | `limitcheck status --json` | Emit normalized one-line JSON for an agent. |
 | `limitcheck sample codex` | Print a safe local Codex-shaped example. |
@@ -158,6 +159,8 @@ The script expects an authenticated GitHub CLI session (`gh auth login`). Pass a
 ## Visual direction
 
 The site is an original Limitcheck identity with a warm paper background, editorial serif typography, marker-orange accents, small hand-drawn marks, and code-note details. It takes visual cues from [social-sdk.dev](https://social-sdk.dev/)—especially its friendly illustrated documentation feel—without copying its logo, copy, or product surface.
+
+Brand assets are tracked in [`assets/`](assets/), with deployable site assets in [`public/`](public/).
 
 ## Status
 

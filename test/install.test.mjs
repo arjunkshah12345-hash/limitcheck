@@ -1,9 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { installAgentGuidance } from "../src/install.mjs";
+import { installAgentGuidance, installGlobalAgentGuidance } from "../src/install.mjs";
 
 test("installs agent guidance without overwriting workspace files", () => {
   const workspace = mkdtempSync(join(tmpdir(), "limitcheck-"));
@@ -22,5 +22,19 @@ test("installs agent guidance without overwriting workspace files", () => {
     assert.equal(second.filter((entry) => entry.status === "exists").length, 5);
   } finally {
     rmSync(workspace, { recursive: true, force: true });
+  }
+});
+
+test("installs global guidance where agent homes are present", () => {
+  const home = mkdtempSync(join(tmpdir(), "limitcheck-home-"));
+  try {
+    mkdirSync(join(home, ".codex"), { recursive: true });
+    mkdirSync(join(home, ".cursor"), { recursive: true });
+    const result = installGlobalAgentGuidance(home);
+    assert.equal(result.some((entry) => entry.path === "~/.agents/skills/limitcheck/SKILL.md"), true);
+    assert.equal(result.some((entry) => entry.path === "~/.codex/skills/limitcheck/SKILL.md"), true);
+    assert.equal(result.some((entry) => entry.path === "~/.cursor/rules/limitcheck.mdc"), true);
+  } finally {
+    rmSync(home, { recursive: true, force: true });
   }
 });

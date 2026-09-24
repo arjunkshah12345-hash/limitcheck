@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import { readFileSync } from "node:fs";
-import { installAgentGuidance } from "../src/install.mjs";
+import { installAgentGuidance, installGlobalAgentGuidance, ensureGlobalPackage } from "../src/install.mjs";
 import { DEMO_SNAPSHOTS, formatText, normalizeSnapshot, toAgentJson } from "../src/limits.mjs";
 
 const args = process.argv.slice(2);
-const command = args[0] && !args[0].startsWith("-") ? args.shift() : "status";
+const command = args[0] && !args[0].startsWith("-") ? args.shift() : "install";
 
 function flag(name) {
   const index = args.indexOf(name);
@@ -21,7 +21,7 @@ function hasFlag(name) {
 
 function printHelp() {
   process.stdout.write(`limitcheck — rate-limit runway for coding agents\n\n`);
-  process.stdout.write(`Usage\n  limitcheck install [--path <workspace>]\n  limitcheck status [--json] [--provider <name>] [--file <path>]\n  limitcheck sample [codex|cursor] [--json]\n\n`);
+  process.stdout.write(`Usage\n  limitcheck [install] [--path <workspace>]\n  limitcheck status [--json] [--provider <name>] [--file <path>]\n  limitcheck sample [codex|cursor] [--json]\n\n`);
   process.stdout.write(`Input\n  Pipe a provider payload on stdin, pass --file, or use LIMITCHECK_SNAPSHOT.\n`);
   process.stdout.write(`  The payload can use windows[], rateLimits{}, limits{}, or usage{}.\n`);
   process.stdout.write(`Agents\n  Run limitcheck install once in a workspace to install runway guidance.\n`);
@@ -43,9 +43,13 @@ async function run() {
   const wantsJson = hasFlag("--json");
   const provider = flag("--provider") ?? "generic";
 
-  if (command === "install") {
+  if (command === "install" || command === "setup") {
     const target = flag("--path") ?? process.cwd();
-    const result = installAgentGuidance(target);
+    const workspaceOnly = hasFlag("--workspace-only");
+    const result = [];
+    if (!workspaceOnly) result.push(ensureGlobalPackage());
+    result.push(...installAgentGuidance(target));
+    if (!workspaceOnly) result.push(...installGlobalAgentGuidance());
     process.stdout.write(`limitcheck: installed agent guidance in ${target}\n`);
     for (const entry of result) process.stdout.write(`  ${entry.status === "created" ? "✓" : "·"} ${entry.status} ${entry.path}\n`);
     return;

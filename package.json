@@ -1,6 +1,6 @@
 {
   "name": "limitcheck",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A tiny, provider-agnostic rate-limit status tool for coding agents.",
   "type": "module",
   "repository": {
@@ -19,7 +19,9 @@
     "src",
     "skills",
     "templates",
+    "assets",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
