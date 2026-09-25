@@ -27,7 +27,7 @@
 
     <main class="page" id="main">
       <header class="hero">
-        <a class="brand-mark" href="/" aria-label="limitcheck home">
+        <a class="brand-mark" href="/" aria-label="Play the limitcheck mark animation" data-logo-burst>
           <img src="/public/mark.svg" alt="" width="38" height="38" />
         </a>
         <div class="hero-copy">
@@ -110,6 +110,7 @@
     </main>
 
     <div class="toast" role="status" aria-live="polite" data-toast></div>
+    <canvas class="logo-canvas" aria-hidden="true" data-logo-canvas></canvas>
     <script>
       const toast = document.querySelector("[data-toast]");
       let toastTimer;
@@ -144,6 +145,138 @@
       } else {
         revealItems.forEach((item) => item.classList.add("is-visible"));
       }
+
+      const logoTrigger = document.querySelector("[data-logo-burst]");
+      const logoImage = logoTrigger?.querySelector("img");
+      const logoCanvas = document.querySelector("[data-logo-canvas]");
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+      let logoAnimationFrame;
+      let logoIsAnimating = false;
+
+      const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3);
+      const easeInOutCubic = (value) => value < .5
+        ? 4 * value * value * value
+        : 1 - Math.pow(-2 * value + 2, 3) / 2;
+
+      function sizeLogoCanvas(context) {
+        const ratio = Math.min(devicePixelRatio || 1, 2);
+        logoCanvas.width = Math.round(innerWidth * ratio);
+        logoCanvas.height = Math.round(innerHeight * ratio);
+        logoCanvas.style.width = `${innerWidth}px`;
+        logoCanvas.style.height = `${innerHeight}px`;
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        return ratio;
+      }
+
+      function makeLogoParticles(bounds) {
+        const sampleSize = 144;
+        const sampleCanvas = document.createElement("canvas");
+        const sampleContext = sampleCanvas.getContext("2d", { willReadFrequently: true });
+        sampleCanvas.width = sampleSize;
+        sampleCanvas.height = sampleSize;
+        sampleContext.drawImage(logoImage, 0, 0, sampleSize, sampleSize);
+
+        const pixels = sampleContext.getImageData(0, 0, sampleSize, sampleSize).data;
+        const particles = [];
+        const centerX = bounds.left + bounds.width / 2;
+        const centerY = bounds.top + bounds.height / 2;
+        const travel = Math.hypot(innerWidth, innerHeight) * .68;
+
+        for (let y = 0; y < sampleSize; y += 2) {
+          for (let x = 0; x < sampleSize; x += 2) {
+            const pixel = (y * sampleSize + x) * 4;
+            const alpha = pixels[pixel + 3];
+            if (alpha < 72) continue;
+
+            const originX = bounds.left + (x / sampleSize) * bounds.width;
+            const originY = bounds.top + (y / sampleSize) * bounds.height;
+            const radial = Math.atan2(originY - centerY, originX - centerX);
+            const angle = radial + (Math.random() - .5) * 2.25;
+            const distance = 70 + Math.pow(Math.random(), .6) * travel;
+
+            particles.push({
+              originX,
+              originY,
+              burstX: Math.cos(angle) * distance + (Math.random() - .25) * 120,
+              burstY: Math.sin(angle) * distance + Math.random() * 150,
+              drift: (Math.random() - .5) * 70,
+              size: .7 + Math.random() * 1.25,
+              rotation: Math.random() * Math.PI,
+              spin: (Math.random() - .5) * 9,
+              color: `rgba(${pixels[pixel]}, ${pixels[pixel + 1]}, ${pixels[pixel + 2]}, ${alpha / 255})`,
+            });
+          }
+        }
+
+        return particles;
+      }
+
+      function finishLogoBurst(context) {
+        cancelAnimationFrame(logoAnimationFrame);
+        context.clearRect(0, 0, innerWidth, innerHeight);
+        logoCanvas.classList.remove("is-active");
+        logoTrigger.classList.remove("is-bursting");
+        document.body.classList.remove("logo-is-bursting");
+        logoIsAnimating = false;
+      }
+
+      async function playLogoBurst(event) {
+        event.preventDefault();
+        if (logoIsAnimating || reducedMotion.matches) return;
+
+        logoIsAnimating = true;
+        try {
+          await logoImage.decode();
+          const context = logoCanvas.getContext("2d");
+          sizeLogoCanvas(context);
+          const particles = makeLogoParticles(logoImage.getBoundingClientRect());
+          const duration = 1540;
+          const start = performance.now();
+
+          logoCanvas.classList.add("is-active");
+          logoTrigger.classList.add("is-bursting");
+          document.body.classList.add("logo-is-bursting");
+
+          function draw(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const outbound = progress < .56;
+            const phase = outbound ? easeOutCubic(progress / .56) : 1 - easeInOutCubic((progress - .56) / .44);
+            const veil = Math.sin(progress * Math.PI) * .88;
+
+            context.clearRect(0, 0, innerWidth, innerHeight);
+            context.fillStyle = `rgba(245, 245, 241, ${veil})`;
+            context.fillRect(0, 0, innerWidth, innerHeight);
+
+            particles.forEach((particle) => {
+              const x = particle.originX + particle.burstX * phase + particle.drift * Math.sin(progress * Math.PI);
+              const y = particle.originY + particle.burstY * phase + Math.sin(phase * Math.PI) * particle.drift;
+              const opacity = .25 + .75 * Math.sin((.18 + progress * .82) * Math.PI);
+
+              context.save();
+              context.globalAlpha = Math.max(.2, opacity);
+              context.translate(x, y);
+              context.rotate(particle.rotation + particle.spin * phase);
+              context.fillStyle = particle.color;
+              context.fillRect(-particle.size, -particle.size * .45, particle.size * 2.6, particle.size * .9);
+              context.restore();
+            });
+
+            if (progress < 1) {
+              logoAnimationFrame = requestAnimationFrame(draw);
+            } else {
+              finishLogoBurst(context);
+            }
+          }
+
+          logoAnimationFrame = requestAnimationFrame(draw);
+        } catch {
+          logoIsAnimating = false;
+          logoTrigger.classList.add("is-fallback-pulse");
+          setTimeout(() => logoTrigger.classList.remove("is-fallback-pulse"), 420);
+        }
+      }
+
+      logoTrigger?.addEventListener("click", playLogoBurst);
     </script>
   </body>
 </html>

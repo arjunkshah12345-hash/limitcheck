@@ -37,8 +37,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .corner-nav a:hover { color: var(--ink); }
 .page { width: min(760px, calc(100% - 48px)); margin: 0 auto; padding: 92px 20px 112px; }
 .hero { min-height: 970px; }
-.brand-mark { display: inline-block; margin-bottom: 178px; }
-.brand-mark img { display: block; width: 36px; height: 36px; }
+.brand-mark { position: relative; z-index: 61; display: inline-block; margin-bottom: 178px; cursor: pointer; }
+.brand-mark img { display: block; width: 36px; height: 36px; transition: opacity .12s ease, transform .35s var(--ease); }
+.brand-mark:hover img { transform: rotate(-5deg) scale(1.05); }
+.brand-mark:active img { transform: rotate(2deg) scale(.96); }
+.brand-mark.is-bursting img { opacity: 0; }
+.brand-mark.is-fallback-pulse img { animation: logo-fallback-pulse .4s var(--ease); }
+@keyframes logo-fallback-pulse { 50% { transform: scale(.88) rotate(-7deg); opacity: .5; } }
+.logo-canvas { position: fixed; inset: 0; z-index: 60; display: block; width: 100%; height: 100%; opacity: 0; pointer-events: none; transition: opacity .08s linear; }
+.logo-canvas.is-active { opacity: 1; }
+.logo-is-bursting { overflow: hidden; }
 .hero-copy { max-width: 470px; }
 h1, h2, p { margin-top: 0; }
 h1 { margin-bottom: 16px; font-size: clamp(34px, 5vw, 47px); font-weight: 500; line-height: 1.03; letter-spacing: -.055em; text-wrap: balance; }
